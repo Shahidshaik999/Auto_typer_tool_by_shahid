@@ -1,6 +1,6 @@
 @echo off
 echo Installing AutoTyper dependencies...
-pip install pyperclip keyboard
+pip install pyperclip keyboard pyautogui
 echo.
-echo Done! Run autotyper with: python autotyper.py
+echo Installation complete! Now run run.bat to start AutoTyper.
 pause
