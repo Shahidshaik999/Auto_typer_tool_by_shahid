@@ -14,11 +14,11 @@ MAX_SPEED = 0.20
 
 def on_key(e):
     if e.name == 'f8':
-        current_speed[0] = max(0.0, round(current_speed[0] - 0.01, 4))
+        current_speed[0] = max(0.0, round(current_speed[0] - 0.02, 4))
         label = "INSTANT" if current_speed[0] == 0.0 else f"{current_speed[0]:.4f}s per char"
         print(f"[+] FASTER → {label}")
     elif e.name == 'f7':
-        current_speed[0] = min(MAX_SPEED, round(current_speed[0] + 0.01, 4))
+        current_speed[0] = min(MAX_SPEED, round(current_speed[0] + 0.02, 4))
         print(f"[-] SLOWER → {current_speed[0]:.4f}s per char")
 
 keyboard.on_press(on_key, suppress=False)
