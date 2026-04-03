@@ -1,6 +1,6 @@
 # AutoTyper Tool by Shahid
 
-A simple auto-typing tool for YouTube recording videos. Copy any code or text, switch to your terminal/editor, press F9 and it types it out character by character like a human!
+A simple auto-typing tool for  recording videos. Copy any code or text, switch to your terminal/editor, press F9 and it types it out character by character like a human!
 
 ## Features
 - Auto-types clipboard content character by character
