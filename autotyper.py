@@ -9,17 +9,16 @@ pyautogui.FAILSAFE = False
 
 current_speed = [TYPING_SPEED]
 
-MIN_SPEED = 0.005
+MIN_SPEED = 0.0   # 0 = no delay = instant/infinite speed
 MAX_SPEED = 0.20
 
-# F8 = faster (hold or tap), F7 = slower (hold or tap)
-# Using suppress=True so these keys don't get typed into the editor
 def on_key(e):
     if e.name == 'f8':
-        current_speed[0] = max(MIN_SPEED, round(current_speed[0] * 0.5, 4))
-        print(f"[+] FASTER → {current_speed[0]:.4f}s per char")
+        current_speed[0] = max(0.0, round(current_speed[0] - 0.01, 4))
+        label = "INSTANT" if current_speed[0] == 0.0 else f"{current_speed[0]:.4f}s per char"
+        print(f"[+] FASTER → {label}")
     elif e.name == 'f7':
-        current_speed[0] = min(MAX_SPEED, round(current_speed[0] * 2.0, 4))
+        current_speed[0] = min(MAX_SPEED, round(current_speed[0] + 0.01, 4))
         print(f"[-] SLOWER → {current_speed[0]:.4f}s per char")
 
 keyboard.on_press(on_key, suppress=False)
@@ -68,7 +67,8 @@ def main():
                 stopped = True
                 break
             type_char(char)
-            time.sleep(current_speed[0])
+            if current_speed[0] > 0:
+                time.sleep(current_speed[0])
 
         if stopped:
             print("[!] Stopped (F10)\n")
