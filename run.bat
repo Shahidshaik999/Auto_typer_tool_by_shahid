@@ -1,6 +1,6 @@
 @echo off
 echo Installing dependencies...
-pip install pyperclip keyboard >nul 2>&1
+pip install pyperclip keyboard pyautogui >nul 2>&1
 echo Starting AutoTyper...
 python autotyper.py
 pause

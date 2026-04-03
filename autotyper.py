@@ -1,26 +1,46 @@
 import pyperclip
 import time
 import keyboard
+import pyautogui
 import sys
 from settings import TYPING_SPEED, TRIGGER_KEY, STOP_KEY, START_DELAY
+
+pyautogui.FAILSAFE = False
 
 # Mutable speed so hotkeys can change it mid-typing
 current_speed = [TYPING_SPEED]
 
 SPEED_STEP = 0.01
-MIN_SPEED = 0.01
+MIN_SPEED = 0.005
 MAX_SPEED = 0.20
 
 def increase_speed():
     current_speed[0] = max(MIN_SPEED, round(current_speed[0] - SPEED_STEP, 3))
-    print(f"[+] Speed increased → {current_speed[0]:.2f}s per char")
+    print(f"[+] Speed increased → {current_speed[0]:.3f}s per char")
 
 def decrease_speed():
     current_speed[0] = min(MAX_SPEED, round(current_speed[0] + SPEED_STEP, 3))
-    print(f"[-] Speed decreased → {current_speed[0]:.2f}s per char")
+    print(f"[-] Speed decreased → {current_speed[0]:.3f}s per char")
 
 keyboard.add_hotkey('F7', decrease_speed)
 keyboard.add_hotkey('F8', increase_speed)
+
+def type_char(char):
+    """Type a single character correctly, including special chars and indentation."""
+    if char == '\n':
+        pyautogui.press('enter')
+    elif char == '\t':
+        pyautogui.press('tab')
+    elif char == ' ':
+        pyautogui.press('space')
+    else:
+        # Use clipboard trick for special/unicode characters
+        # This is the most reliable method for code with symbols
+        old_clip = pyperclip.paste()
+        pyperclip.copy(char)
+        pyautogui.hotkey('ctrl', 'v')
+        time.sleep(0.01)
+        pyperclip.copy(old_clip)
 
 def main():
     print("=" * 40)
@@ -31,7 +51,7 @@ def main():
     print(f"  F8  = Speed up typing")
     print(f"  F7  = Slow down typing")
     print(f"  Ctrl+C = Quit\n")
-    print(f"  Current speed: {current_speed[0]:.2f}s per char\n")
+    print(f"  Current speed: {current_speed[0]:.3f}s per char\n")
     print("Ready! Copy your code, click your target window, press F9\n")
 
     while True:
@@ -42,7 +62,7 @@ def main():
             print("[!] Clipboard is empty, nothing to type!")
             continue
 
-        print(f"[>] {len(text)} chars queued | speed: {current_speed[0]:.2f}s | starting in {START_DELAY}s... switch window!")
+        print(f"[>] {len(text)} chars queued | speed: {current_speed[0]:.3f}s | starting in {START_DELAY}s... switch window!")
         time.sleep(START_DELAY)
         print("[>] Typing started... (F8=faster, F7=slower, F10=stop)")
 
@@ -51,7 +71,7 @@ def main():
             if keyboard.is_pressed(STOP_KEY):
                 stopped = True
                 break
-            keyboard.write(char, delay=0)
+            type_char(char)
             time.sleep(current_speed[0])
 
         if stopped:
