@@ -7,6 +7,14 @@ A simple auto-typing tool for  recording videos. Copy any code or text, switch t
 - Adjustable typing speed
 - Stop mid-typing with F10
 - 3 second delay to switch windows before typing starts
+- Syntax-aware mode (F6) — types like a real developer for:
+  - HTML (opens tag + closing tag, cursor goes inside)
+  - Python (types block header first, then body)
+  - JavaScript / TypeScript
+  - React JSX / TSX (handles components naturally)
+  - CSS / SCSS
+  - JSON
+  - C / C++ / Java
 
 ## Requirements
 - Python 3.x
@@ -22,9 +30,10 @@ A simple auto-typing tool for  recording videos. Copy any code or text, switch t
 1. Copy your code or text (`Ctrl+C`)
 2. Click into your terminal or editor window
 3. Press `F9` to start auto-typing
-4. Press `F8` to speed up while typing
-5. Press `F7` to slow down while typing
-6. Press `F10` to stop mid-way
+4. Press `F6` to toggle syntax-aware mode (real-dev style typing)
+5. Press `F8` for instant speed
+6. Press `F7` to slow down
+7. Press `F10` to stop mid-way
 
 ## Settings
 
