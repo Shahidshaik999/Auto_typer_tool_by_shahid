@@ -22,7 +22,9 @@ A simple auto-typing tool for  recording videos. Copy any code or text, switch t
 1. Copy your code or text (`Ctrl+C`)
 2. Click into your terminal or editor window
 3. Press `F9` to start auto-typing
-4. Press `F10` to stop mid-way
+4. Press `F8` to speed up while typing
+5. Press `F7` to slow down while typing
+6. Press `F10` to stop mid-way
 
 ## Settings
 
