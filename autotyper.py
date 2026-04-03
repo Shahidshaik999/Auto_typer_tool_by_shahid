@@ -63,6 +63,12 @@ def detect_language(code):
     # JSX / TSX / React
     if re.search(r'(import React|from [\'"]react[\'"]|useState|useEffect|<[A-Z]\w+|\.tsx|\.jsx)', c):
         return 'jsx'
+    # Java
+    if re.search(r'(public\s+class|public\s+static\s+void\s+main|System\.out|import\s+java\.)', c):
+        return 'java'
+    # C / C++
+    if re.search(r'(#include\s*<|int\s+main\s*\(|std::|printf\s*\(|scanf\s*\(|cout\s*<<)', c):
+        return 'c'
     # TypeScript
     if re.search(r'(:\s*(string|number|boolean|void|any|never)\b|interface\s+\w+|type\s+\w+\s*=|<T>|as\s+\w+)', c):
         return 'typescript'
@@ -72,15 +78,12 @@ def detect_language(code):
     # Python
     if re.search(r'^\s*(def |class |import |from |if __name__|@\w+)', c, re.M):
         return 'python'
-    # JS / TS generic
+    # JS generic
     if re.search(r'(function\s+\w+\s*\(|const |let |var |=>|module\.exports|export default)', c):
         return 'javascript'
     # JSON
     if re.match(r'^\s*[\{\[]', c):
         return 'json'
-    # C / C++ / Java
-    if re.search(r'(#include|int main\s*\(|std::|public class|void\s+\w+\s*\()', c):
-        return 'c'
     return 'generic'
 
 # ── VOID / SELF-CLOSING TAGS ─────────────────────────────────────────────────
@@ -349,7 +352,7 @@ def syntax_type(code):
     elif lang in ('jsx', 'typescript'):
         return syntax_type_braces(lines, jsx=True)
     else:
-        # javascript, css, json, c, generic — all brace-based
+        # javascript, css, json, c, c++, java, generic — all brace-based
         return syntax_type_braces(lines, jsx=False)
 
 # ── MAIN ─────────────────────────────────────────────────────────────────────
